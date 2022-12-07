@@ -1,0 +1,33 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw Image to Canvas</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            height: 200px;
+        }
+        input {
+            font-size: 14pt;
+        }
+    </style>
+ </head>
+ <body>
+    <h1>Upload and Display Image</h1>
+    <canvas id="canvas1"></canvas>
+    <p><input type="file" id="filename" name="filename" accept="image/*" onchange="upload()"/></p>
+
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <script>
+        function upload() {
+            var finput = document.getElementById("filename");
+            var image = new SimpleImage(finput);
+            var canv = document.getElementById("canvas1");
+            image.drawTo(canv);           
+        }
+    </script>
+ </body>
+ </html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Make Image Grayscale</title>
+   <style>
+       canvas {
+           border: 1px solid black;
+           height: 200px;
+       }
+       input {
+           font-size: 14pt;
+       }
+   </style>
+</head>
+<body>
+   <h1>Upload and Display Image</h1>
+   <canvas id="canvas1"></canvas>
+   <p>
+    <input type="file" id="filename" name="filename" accept="image/*" onchange="upload()"/>
+    <input type="button" onclick="makeGray()" value="Make Gray" />
+</p>
+
+   <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+   <script>
+        var image;
+        var canvas = document.getElementById("canvas1");
+
+        function upload() {
+           var finput = document.getElementById("filename");
+           image = new SimpleImage(finput);
+           
+           image.drawTo(canvas);           
+        }
+
+        function makeGray() {
+            for (var pixel of image.values()) {
+                var avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+                
+                pixel.setRed(avg);
+                pixel.setGreen(avg);
+                pixel.setBlue(avg);
+            }
+            image.drawTo(canvas)
+        }
+   </script>
+</body>
+</html>

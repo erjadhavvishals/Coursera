@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Green Screen</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            height: 200px;
+        }
+
+        input {
+            font-size: 14pt;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <h1>Green Screen Interactive</h1>
+    <canvas id="canvas1"></canvas>
+    <canvas id="canvas2"></canvas>
+    <p>Foreground : <input type="file" id="fgImage" name="filename" accept="image/*" onchange="loadForegroundImage()"/></p>
+    <p>Background : <input type="file" id="bgImage" name="filename" accept="image/*" onchange="loadBackgroundImage()"/></p>
+    <p><input type="button" value="Make Composite Image" onclick="doGreenScreen()"/> <input type="button" value="Clear Canvases" onclick="clearCanvases()"/></p>
+
+    <script>
+        var fgImage = null;
+        var bgImage = null;
+        var canvas1 = document.getElementById("canvas1");
+        var canvas2 = document.getElementById("canvas2");
+        var ctx1 = canvas1.getContext("2d");
+        var ctx2 = canvas2.getContext("2d");
+
+        function loadForegroundImage() {
+            var fgInput = document.getElementById("fgImage");
+            fgImage = new SimpleImage(fgInput);
+            
+            fgImage.drawTo(canvas1);        
+        }
+
+        function loadBackgroundImage() {
+            var bgInput = document.getElementById("bgImage");
+            bgImage = new SimpleImage(bgInput);
+            
+            bgImage.drawTo(canvas2);        
+        }
+
+        function clearCanvases() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+        }
+
+        function doGreenScreen() {
+            if (fgImage == null || !fgImage.complete()) {
+                alert ("Foreground Image not loaded.");
+                return;
+            }
+            if (bgImage == null || !bgImage.complete()) {
+                alert ("Background Image not loaded.");
+                return;
+            }
+        
+            var opImage = new SimpleImage(fgImage.getWidth(), fgImage.getHeight());
+            var greenThreshold = 240;
+
+            clearCanvases();
+            for (var pixel of fgImage.values()) {
+                var x = pixel.getX();
+                var y = pixel.getY();
+            
+                if (pixel.getGreen() > greenThreshold) {
+                    var bgPixel = bgImage.getPixel(x, y);
+                    opImage.setPixel(x, y, bgPixel);    
+                } else {
+                    opImage.setPixel(x, y, pixel);
+                }
+            }
+            opImage.drawTo(canvas1);
+        }
+    </script>
+</body>
+</html>

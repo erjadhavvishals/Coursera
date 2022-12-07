@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Filters</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            font-family: "Times New Roman", Times, serif;
+        }
+        canvas {
+            border: 1px solid black;
+            /* width: 700px; */
+            height: 200px;
+        }
+        input {
+            font-size: 14pt;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+    <h1>Filter Fun</h1>
+    <canvas id="canvas"></canvas>
+    <h2>Load Image</h2>
+    <p><input type="file" id="finput" name="filename" accept="image/*" onchange="loadImage()" /></p>
+
+    <h2>Choose Filter</h2>
+    <p>
+        <input type="button" value="Grayscale" onclick="doGray()"/> 
+        <input type="button" value="Red" onclick="doRed()"/>
+        <input type="button" value="Rainbow" onclick="doRainbow()"/>
+        <input type="button" value="Blur" onclick="doBlur()" />
+    </p>
+    <p>
+        <input type="button" value="Reset Image" onclick="resetImage()"/>
+    </p>
+
+    <script>
+        var image = null;
+        var grayImage = null;
+        var redImage = null;
+        var rainbowImage = null;
+        var blurImage = null;
+        /* var doneGray = false;
+        var doneRed = false;
+        var doneRainbow = false; */
+        var canvas = document.getElementById("canvas");
+
+        function loadImage() {
+            var finput = document.getElementById("finput");
+            image = new SimpleImage(finput);
+            grayImage = new SimpleImage(finput);
+            redImage = new SimpleImage(finput);
+            rainbowImage = new SimpleImage(finput);
+            
+            image.drawTo(canvas); 
+        }
+
+        function resetImage() {
+            image.drawTo(canvas);
+        }
+
+        function doGray() {
+            if (image == null || !image.complete()) {
+                alert ("Image not loaded.");
+                return;
+            }
+            filterGray();
+            
+            grayImage.drawTo(canvas);
+        }
+
+        function filterGray() {
+            for (var pixel of grayImage.values()) {
+                var avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+                
+                pixel.setRed(avg);
+                pixel.setGreen(avg);
+                pixel.setBlue(avg);
+            }
+        }
+
+        function doRed() {
+            if (image == null || !image.complete()) {
+                alert ("Image not loaded.");
+                return;
+            }
+            filterRed();
+            
+            redImage.drawTo(canvas);
+        }
+
+        function filterRed() {
+            for (var pixel of redImage.values()) {
+                var avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+                if (avg < 128) {
+                    pixel.setRed(2 * avg);
+                    pixel.setGreen(0);
+                    pixel.setBlue(0);
+                } else {
+                    pixel.setRed(255);  
+                }
+            }
+        }
+
+        function doRainbow() {
+            if (image == null || !image.complete()) {
+                alert ("Image not loaded.");
+                return;
+            }
+            filterRainbow();
+            
+            rainbowImage.drawTo(canvas);
+        }
+
+        function filterRainbow() {
+            for (var pixel of rainbowImage.values()) {
+                var avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+    
+                if (pixel.getY() <= rainbowImage.getHeight() / 7) {
+                    if (avg < 128) {
+                        pixel.setRed(2 * avg);
+                        pixel.setGreen(0);
+                        pixel.setBlue(0);
+                    } else {
+                        pixel.setRed(255); 
+                        pixel.setGreen(2 * avg - 255);
+                        pixel.setBlue(2 * avg) - 255;
+                    }      
+                } else if (pixel.getY() > rainbowImage.getHeight() / 7 && pixel.getY() <= (rainbowImage.getHeight() / 7) * 2)  {
+                    if (avg < 128) {
+                        pixel.setRed(2 * avg);
+                        pixel.setGreen(0.8 * avg);
+                        pixel.setBlue(0);  
+                    } else {
+                        pixel.setRed(255);
+                        pixel.setGreen(1.2 * avg - 51);
+                        pixel.setBlue(2 * avg - 255);  
+                    }      
+                } else if (pixel.getY() > (rainbowImage.getHeight() / 7) * 2 && pixel.getY() <= (rainbowImage.getHeight() / 7) * 3)  {
+                    if (avg < 128) {
+                        pixel.setRed(2 * avg);
+                        pixel.setGreen(2 * avg);
+                        pixel.setBlue(0);  
+                    } else {
+                        pixel.setRed(255);
+                        pixel.setGreen(255);
+                        pixel.setBlue(2 * avg - 255);
+                    }      
+                } else if (pixel.getY() > (rainbowImage.getHeight() / 7) * 3 && pixel.getY() <= (rainbowImage.getHeight() / 7) * 4)  {
+                    if (avg < 128) {
+                        pixel.setRed(0);
+                        pixel.setGreen(2 * avg);
+                        pixel.setBlue(0);
+                    } else {
+                        pixel.setRed(2 * avg - 255); 
+                        pixel.setGreen(255);  
+                        pixel.setBlue(2 * avg - 255);
+                    }      
+                } else if (pixel.getY() > (rainbowImage.getHeight() / 7) * 4 && pixel.getY() <= (rainbowImage.getHeight() / 7) * 5)  {
+                    if (avg < 128) {
+                        pixel.setRed(0);
+                        pixel.setGreen(0);
+                        pixel.setBlue(2 * avg);
+                    } else {
+                        pixel.setRed(2 * avg - 255);
+                        pixel.setGreen(2 * avg - 255);  
+                        pixel.setBlue(255);  
+                    }
+                } else if (pixel.getY() > (rainbowImage.getHeight() / 7) * 5 && pixel.getY() <= (rainbowImage.getHeight() / 7) * 6)  {
+                    if (avg < 128) {
+                        pixel.setRed(0.8 * avg);
+                        pixel.setGreen(0);
+                        pixel.setBlue(2 * avg);
+                    } else {
+                        pixel.setRed(1.2 * avg - 51);
+                        pixel.setGreen(2 * avg - 255);
+                        pixel.setBlue(255); 
+                    }      
+                } else {
+                    if (avg < 128) {
+                        pixel.setRed(1.6 * avg);
+                        pixel.setGreen(0);
+                        pixel.setBlue(1.6 * avg);  
+                    } else {
+                        pixel.setRed(0.4 * avg + 153);
+                        pixel.setGreen(2 * avg - 255);
+                        pixel.setBlue(0.4 * avg + 153);
+                    }      
+                }
+            }
+        }
+
+        function doBlur() {
+            if (image == null || !image.complete()) {
+                alert("Image not loaded.");
+                return;
+            }
+            filterBlur();
+
+            blurImage.drawTo(canvas);
+        }
+
+        function filterBlur() {
+            var min = 0;
+            var max = 1;
+  
+            blurImage = new SimpleImage(image.width, image.height);
+
+            for (var pixel of blurImage.values()) {
+                var randNo = Math.random() * (max - min) + min;
+                
+                var x = pixel.getX();
+                var y = pixel.getY();
+    
+            if (randNo < 0.5) {
+                pixel.setRed(image.getPixel(x, y).getRed());
+                pixel.setGreen(image.getPixel(x, y).getGreen());
+                pixel.setBlue(image.getPixel(x, y).getBlue());
+            } else {
+                var randX = getRandomCoordinates();
+                var randY = getRandomCoordinates();
+                if (randX < 0) {
+                    randX = 0;
+                }
+                
+                if (randY < 0) {
+                    randY = 0;
+                }
+            
+                pixel.setRed(image.getPixel(randX, randY).getRed());
+                pixel.setGreen(image.getPixel(randX, randY).getGreen());
+                pixel.setBlue(image.getPixel(randX, randY).getBlue());
+            }    
+        }
+    }
+
+    function getRandomCoordinates() {
+        var min = 0;
+        var max = 10;
+        var randomCoordinate = Math.random() * (max - min) + min;
+        
+        return randomCoordinate;
+    }
+    </script>
+</body>
+</html>
