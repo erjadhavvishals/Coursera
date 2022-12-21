@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Part3
+comment0.text=\n\ Write\ a\ description\ of\ class\ Part3\ here.\n\n\ @author\ (Jadhav\ Vishal\ S.)\n\ @version\ (18-12-2022)\n
+comment1.params=
+comment1.target=Part3()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Part3\n
+comment2.params=y
+comment2.target=int\ sampleMethod(int)
+comment2.text=\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\n\n\ @param\ \ y\ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ the\ sum\ of\ x\ and\ y\n
+comment3.params=stringa\ stringb
+comment3.target=java.lang.Boolean\ twoOccurrences(java.lang.String,\ java.lang.String)
+comment4.params=
+comment4.target=void\ testing()
+comment5.params=stringa\ stringb
+comment5.target=java.lang.String\ lastPart(java.lang.String,\ java.lang.String)
+comment6.params=args
+comment6.target=void\ main(java.lang.String[])
+numComments=7
