@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=Part3
+comment0.text=\n\ Write\ a\ description\ of\ class\ Part3\ here.\n\n\ @author\ (Jadhav\ Vishal\ S.)\n\ @version\ (22-12-2022)\n
+comment1.params=
+comment1.target=Part3()
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Part3\n
+comment10.params=args
+comment10.target=void\ main(java.lang.String[])
+comment2.params=y
+comment2.target=int\ sampleMethod(int)
+comment2.text=\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\n\n\ @param\ \ y\ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ the\ sum\ of\ x\ and\ y\n
+comment3.params=dna\ startIndex\ stopCodon
+comment3.target=int\ findStopCodon(java.lang.String,\ int,\ java.lang.String)
+comment4.params=
+comment4.target=void\ testFindStopCodon()
+comment5.params=dna\ where
+comment5.target=java.lang.String\ findGene(java.lang.String,\ int)
+comment6.params=
+comment6.target=void\ testFindGene()
+comment7.params=dna
+comment7.target=void\ printAllGenes(java.lang.String)
+comment8.params=dna
+comment8.target=int\ countGenes(java.lang.String)
+comment9.params=
+comment9.target=void\ testCountGenes()
+numComments=11
