@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=ImageFilter
+comment0.text=\n\ Write\ a\ description\ of\ class\ ImageFilter\ here.\n\n\ @author\ (Jadhav\ Vishal\ S.)\n\ @version\ (07-01-2023)\n
+comment1.params=inImage
+comment1.target=edu.duke.ImageResource\ makeGray(edu.duke.ImageResource)
+comment2.params=
+comment2.target=void\ testGraySingleFile()
+comment3.params=
+comment3.target=void\ testGrayMultipleFiles()
+comment4.params=inImage
+comment4.target=edu.duke.ImageResource\ inverseImage(edu.duke.ImageResource)
+comment5.params=
+comment5.target=void\ testInverseSingleFile()
+numComments=6
